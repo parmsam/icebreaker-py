@@ -1,0 +1,6 @@
+shiny==0.5.1
+shinylive
+shinyswatch
+pandas
+numpy
+pyperclip
