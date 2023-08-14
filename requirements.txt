@@ -1,6 +1,6 @@
 shiny==0.5.1
-shinylive
+shinylive==0.0.13
 shinyswatch
 pandas
 numpy
-pyperclip
+# pyperclip

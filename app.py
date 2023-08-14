@@ -1,9 +1,11 @@
 from shiny import *
 import shiny.experimental as x
+from shiny import ui
 import pandas as pd
 import numpy as np
 from pathlib import Path
-import pyperclip
+import os
+# import pyperclip
 
 # Read in data
 file_path = Path(__file__).parent / "data" / "icebreakers.csv"
@@ -22,7 +24,7 @@ def random_icebreaker(replace = False, N = 1):
 
 # Define the app
 app_ui = ui.page_fluid(
-    ui.include_css(css_file),
+    ui.include_css(css_file, method="link_files"),
     ui.h1("🧊 break the ice ⛏️"),
     ui.input_slider("obs", "number of icebreakers", min=0, max=5, value = 1, step = 1),
     x.ui.tooltip(
@@ -40,13 +42,13 @@ app_ui = ui.page_fluid(
             placeholder = False,
         )
     ),
-    ui.panel_conditional(
-        "input.random",
-        ui.input_action_button(
-            "copy", "copy", 
-            icon = "📋", class_="btn-sm"
-        ),
-    )
+    # ui.panel_conditional(
+    #     "input.random",
+    #     ui.input_action_button(
+    #         "copy", "copy", 
+    #         icon = "📋", class_="btn-sm"
+    #     ),
+    # )
 )
 
 def server(input, output, session):
