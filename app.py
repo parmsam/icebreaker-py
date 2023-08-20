@@ -15,7 +15,11 @@ data = pd.read_csv(file_path)
 css_file = Path(__file__).parent / "www" / "styles.css"
 
 # Define a function to get a random icebreaker
-def random_icebreaker(replace = False, N = 1):
+def random_icebreaker(data = data, replace = False, N = 1, include_difficult = False):
+    # filter out difficult questions by default
+    if not include_difficult:
+        data = data[data["difficulty"] == False]
+    # sample N rows from the data
     rand_row = data.sample(n = N, replace = replace)
     # paste each question and emoji together
     questions = rand_row["question"].values
@@ -27,6 +31,7 @@ app_ui = ui.page_fluid(
     ui.include_css(css_file, method="link_files"),
     ui.h1("🧊 break the ice ⛏️"),
     ui.input_slider("obs", "number of icebreakers", min=0, max=5, value = 1, step = 1),
+    ui.input_switch("difficulty", "include difficult questions", value = False),
     x.ui.tooltip(
         ui.input_action_button(
             "random", "randomize", 
@@ -55,13 +60,16 @@ def server(input, output, session):
     @reactive.Calc
     def new_question():
         input.random()
-        x = random_icebreaker(N = input.obs())
+        x = random_icebreaker(
+            N=input.obs(),
+            include_difficult = input.difficulty()
+            )
         return x
     
-    @reactive.Effect
-    @reactive.event(input.copy)
-    def copy_stuff():
-        pyperclip.copy(new_question())
+    # @reactive.Effect
+    # @reactive.event(input.copy)
+    # def copy_stuff():
+    #     pyperclip.copy(new_question())
 
     @output
     @render.text
