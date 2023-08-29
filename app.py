@@ -28,9 +28,14 @@ def random_icebreaker(data = data, replace = False, N = 1, include_difficult = F
 
 # Define the app
 app_ui = ui.page_fluid(
+    ui.head_content(
+        ui.HTML('<link rel="shortcut icon" href="/images/favicon.ico" >')   
+    ),
     ui.include_css(css_file, method="link_files"),
     ui.h1("🧊 break the ice ⛏️"),
-    ui.input_slider("obs", "number of icebreakers", min=0, max=5, value = 1, step = 1),
+    ui.em(ui.HTML(
+        "by <a href='https://github.com/parmsam/icebreaker-py/' target='_blank'>parmsam</a>")),
+    ui.input_slider("obs", "pick number of icebreakers", min=0, max=5, value = 1, step = 1),
     ui.input_switch("difficulty", "include difficult questions", value = False),
     x.ui.tooltip(
         ui.input_action_button(
