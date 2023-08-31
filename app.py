@@ -11,8 +11,9 @@ import os
 file_path = Path(__file__).parent / "data" / "icebreakers.csv"
 ## Read the data file using pandas
 data = pd.read_csv(file_path)
-# css style path 
+# Declare paths to static assets
 css_file = Path(__file__).parent / "www" / "styles.css"
+js_file = Path(__file__).parent / "www" / "script.js"
 
 # Define a function to get a random icebreaker
 def random_icebreaker(data = data, replace = False, N = 1, include_difficult = False):
@@ -32,6 +33,7 @@ app_ui = ui.page_fluid(
         ui.HTML('<link rel="shortcut icon" href="/images/favicon.ico" >')   
     ),
     ui.include_css(css_file, method="link_files"),
+    ui.include_js(js_file, method="link_files"),
     ui.h1("🧊 break the ice ⛏️"),
     ui.em(ui.HTML(
         "by <a href='https://github.com/parmsam/icebreaker-py/' target='_blank'>parmsam</a>")),
@@ -52,13 +54,13 @@ app_ui = ui.page_fluid(
             placeholder = False,
         )
     ),
-    # ui.panel_conditional(
-    #     "input.random",
-    #     ui.input_action_button(
-    #         "copy", "copy", 
-    #         icon = "📋", class_="btn-sm"
-    #     ),
-    # )
+    ui.panel_conditional(
+        "input.random",
+        ui.input_action_button(
+            "copy", "copy", 
+            icon = "📋", class_="btn-sm"
+        ),
+    )
 )
 
 def server(input, output, session):
