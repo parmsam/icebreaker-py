@@ -5,7 +5,6 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 import os
-# import pyperclip
 
 # Read in data
 file_path = Path(__file__).parent / "data" / "icebreakers.csv"
@@ -72,11 +71,6 @@ def server(input, output, session):
             include_difficult = input.difficulty()
             )
         return x
-    
-    # @reactive.Effect
-    # @reactive.event(input.copy)
-    # def copy_stuff():
-    #     pyperclip.copy(new_question())
 
     @output
     @render.text
