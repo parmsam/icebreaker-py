@@ -1,5 +1,5 @@
-shiny==0.5.1
-shinylive==0.0.13
+shiny
+shinylive
 shinyswatch
 pandas
 numpy
