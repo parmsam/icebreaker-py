@@ -1,8 +1,6 @@
 from shiny import *
-import shiny.experimental as x
 from shiny import ui
 import pandas as pd
-import numpy as np
 from pathlib import Path
 import os
 
@@ -38,12 +36,9 @@ app_ui = ui.page_fluid(
          "<a href='https://github.com/parmsam/icebreaker-py/' target='_blank'>parmsam</a>")),
     ui.input_slider("obs", "pick number of icebreakers", min=0, max=5, value = 1, step = 1),
     ui.input_switch("difficulty", "include difficult questions", value = False),
-    x.ui.tooltip(
-        ui.input_action_button(
-            "random", "randomize", 
-            icon = "", class_ = "btn-primary",
-        ),
-        "",
+    ui.input_action_button(
+        "random", "randomize", 
+        icon = "", class_ = "btn-primary",
     ),
     ui.br(), 
     ui.br(), 
